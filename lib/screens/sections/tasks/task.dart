@@ -158,17 +158,17 @@ class _MyTaskState extends State<MyTask> {
                     if (showDeleteButton) {
                       setState(() {showDeleteButton = false;});
                     } else {
-                      if (!isStartReordering) {
-                        if (isExpanded) {
-                          setState(() {
-                            isExpanded = false;
-                          });
-                        } else {
-                          setState(() {
-                            isExpanded = true;
-                          });
-                        }
-                      }
+                      // if (!isStartReordering) {
+                      //   if (isExpanded) {
+                      //     setState(() {
+                      //       isExpanded = false;
+                      //     });
+                      //   } else {
+                      //     setState(() {
+                      //       isExpanded = true;
+                      //     });
+                      //   }
+                      // }
                     }
                     
                   },

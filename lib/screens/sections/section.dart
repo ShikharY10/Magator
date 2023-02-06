@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:magator/screens/sections/cards.dart';
+import 'package:magator/screens/sections/subsection/cards.dart';
 import 'package:magator/screens/sections/section_seperator.dart';
 import '../../db/models.dart' as models;
 import '../../db/config.dart';

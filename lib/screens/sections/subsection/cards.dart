@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:magator/screens/popups/edit_subsection.dart';
-import '../../db/config.dart';
-import '../../db/models.dart' as models;
-import '../../broker/broker.dart';
-import '../../utils/themes/colors.dart';
-import '../popups/delete_subsection.dart';
-import '../popups/utility.dart';
-import 'tasks/tasks.dart';
+import '../../../db/config.dart';
+import '../../../db/models.dart' as models;
+import '../../../broker/broker.dart';
+import '../../../utils/themes/colors.dart';
+import '../../popups/delete_subsection.dart';
+import '../../popups/utility.dart';
+import '../tasks/tasks.dart';
 
 class SectionCard extends StatefulWidget {
   final double? width;
