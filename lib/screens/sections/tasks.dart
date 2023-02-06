@@ -29,7 +29,12 @@ class _MyTasksState extends State<MyTasks> {
   uiEventListner() {
     broker.listen(widget.title, (event) {
       Protocol protocol = (event as Protocol);
-      // TODO: Implement logci according to UI events.
+      if (protocol.publisher == "delete_task") {
+        taskNames.tasks.removeAt(protocol.data);
+        String saveTasks = taskNames.toString();
+        db.set("todos", "${widget.title}_tasks", saveTasks);
+        setState(() {});
+      }
     });
   }
 

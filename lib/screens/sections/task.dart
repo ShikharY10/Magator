@@ -22,6 +22,7 @@ class _MyTaskState extends State<MyTask> {
   models.Task task = models.Task();
   bool isExpanded = false;
   bool isStartReordering = false;
+  bool showDeleteButton = false;
 
   listenToUiEvent() {
     broker.listenBroadCast("${widget.parent}_reorder", (event) {
@@ -70,104 +71,147 @@ class _MyTaskState extends State<MyTask> {
         index: widget.index,
         child: Column(
           children: [
-            InkWell(
-              child: Container(
-                height: 105,
-                decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 37, 38, 40),
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(15),
-                    topRight: const Radius.circular(15),
-                    bottomLeft: isExpanded ? const Radius.circular(0)  : const Radius.circular(15),
-                    bottomRight: isExpanded ? const Radius.circular(0) : const Radius.circular(15)
-                  ),
-                  border: isStartReordering ? Border.all(color: Colors.white) : null
-                ),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 8,
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0),
-                              child: Text(task.title!,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16
-                                )
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal:8, vertical:2),
-                              child: Text(task.description!,
-                                style: const TextStyle(
-                                  color: Colors.grey
-                                )
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 2.0),
-                              child: Row(
-                                children: [
-                                  Flexible(flex: 5,child: TaskDetailDisplay(
-                                    name: "Status",
-                                    value: statusDict[task.status]!,
-                                  )),
-                                  const SizedBox(width: 3),
-                                  Flexible(flex: 5,child: TaskDetailDisplay(
-                                    name: "Priority",
-                                    value: preorityDict[task.priority]!
-                                  )),
-                                ]
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(),
-                              child: Row(
-                                children: [
-                                  Flexible(flex: 5,child: TaskDetailDisplay(
-                                    name: "Started",
-                                    value: formateDate(task.startDate!)
-                                  )),
-                                  const SizedBox(width: 3),
-                                  Flexible(flex: 5,child: TaskDetailDisplay(
-                                    name: "Deadline",
-                                    value: formateDate(task.deadline!)
-                                  )),
-                                ]
-                              ),
-                            ),
-                          ]
-                        ),
-                      )
+            Stack(
+              children: [
+                InkWell(
+                  child: Container(
+                    height: 105,
+                    decoration: BoxDecoration(
+                      color: const Color.fromARGB(255, 37, 38, 40),
+                      borderRadius: BorderRadius.only(
+                        topLeft: const Radius.circular(15),
+                        topRight: const Radius.circular(15),
+                        bottomLeft: isExpanded ? const Radius.circular(0)  : const Radius.circular(15),
+                        bottomRight: isExpanded ? const Radius.circular(0) : const Radius.circular(15)
+                      ),
+                      border: isStartReordering ? Border.all(color: Colors.white) : null
                     ),
-                  ]
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 8,
+                          child: Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10.0),
+                                  child: Text(task.title!,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16
+                                    )
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal:8, vertical:2),
+                                  child: Text(task.description!,
+                                    style: const TextStyle(
+                                      color: Colors.grey
+                                    )
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 2.0),
+                                  child: Row(
+                                    children: [
+                                      Flexible(flex: 5,child: TaskDetailDisplay(
+                                        name: "Status",
+                                        value: statusDict[task.status]!,
+                                      )),
+                                      const SizedBox(width: 3),
+                                      Flexible(flex: 5,child: TaskDetailDisplay(
+                                        name: "Priority",
+                                        value: preorityDict[task.priority]!
+                                      )),
+                                    ]
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(),
+                                  child: Row(
+                                    children: [
+                                      Flexible(flex: 5,child: TaskDetailDisplay(
+                                        name: "Started",
+                                        value: formateDate(task.startDate!)
+                                      )),
+                                      const SizedBox(width: 3),
+                                      Flexible(flex: 5,child: TaskDetailDisplay(
+                                        name: "Deadline",
+                                        value: formateDate(task.deadline!)
+                                      )),
+                                    ]
+                                  ),
+                                ),
+                              ]
+                            ),
+                          )
+                        ),
+                      ]
+                    )
+                  ),
+                  onTap: () {
+                    print("ontap working");
+                    if (showDeleteButton) {
+                      setState(() {showDeleteButton = false;});
+                    } else {
+                      if (!isStartReordering) {
+                        if (isExpanded) {
+                          setState(() {
+                            isExpanded = false;
+                          });
+                        } else {
+                          setState(() {
+                            isExpanded = true;
+                          });
+                        }
+                      }
+                    }
+                    
+                  },
+                  onLongPress: () {
+                    print("long press working, DELETE");
+                    if (showDeleteButton) {
+                      setState(() {showDeleteButton = false;});
+                    } else {
+                      setState(() {showDeleteButton = true;});
+                    }
+                  },
+                ),
+                Visibility(
+                  visible: showDeleteButton,
+                  child: Positioned(
+                    right: 0.1,
+                    top: 0.1,
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(50))
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              splashRadius: 25,
+                              splashColor: Colors.black,
+                              color: Colors.red,
+                              icon: const Icon(Icons.delete),
+                              onPressed: () {
+                                broker.publish("delete_task", widget.parent, widget.index);
+                              },
+                            )
+                          ]
+                        )
+                      ),
+                    )
+                  ),
                 )
-              ),
-              onTap: () {
-                print("ontap working");
-                if (!isStartReordering) {
-                  if (isExpanded) {
-                    setState(() {
-                      isExpanded = false;
-                    });
-                  } else {
-                    setState(() {
-                      isExpanded = true;
-                    });
-                  }
-                }
-              },
-              onLongPress: () {
-                print("long press working, DELETE");
-                
-              },
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(top: 1.0),
@@ -192,6 +236,7 @@ class _MyTaskState extends State<MyTask> {
     );
   }
 }
+
 
 class TaskDetailDisplay extends StatefulWidget {
   final String name;
