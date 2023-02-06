@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import '../../db/config.dart';
-import '../../db/models.dart' as models;
-import '../../broker/broker.dart';
-import '../popups/utility.dart';
+import '../../../db/config.dart';
+import '../../../db/models.dart' as models;
+import '../../../broker/broker.dart';
+import '../../popups/utility.dart';
 
 class MyTask extends StatefulWidget {
   final int index;
@@ -213,23 +213,7 @@ class _MyTaskState extends State<MyTask> {
                 )
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 1.0),
-              child: Visibility(
-                visible: isExpanded,
-                child: Container(
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 56, 57, 61),
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(15),
-                      bottomRight: Radius.circular(15)
-                    )
-                  ),
-                  child: Center(child: Text("Expanded Mode"))
-                ),
-              ),
-            )
+            // TODO: Implement expanded mode feature
           ],
         ),
       ),

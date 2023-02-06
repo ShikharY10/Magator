@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:magator/utils/themes/colors.dart';
-import '../../db/config.dart';
-import '../../db/models.dart' as models;
-import '../../broker/broker.dart';
-import '../popups/add_tasks.dart';
+import '../../../db/config.dart';
+import '../../../db/models.dart' as models;
+import '../../../broker/broker.dart';
+import '../../popups/add_tasks.dart';
 import 'task.dart';
 
 class MyTasks extends StatefulWidget {

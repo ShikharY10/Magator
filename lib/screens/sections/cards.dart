@@ -7,7 +7,7 @@ import '../../broker/broker.dart';
 import '../../utils/themes/colors.dart';
 import '../popups/delete_subsection.dart';
 import '../popups/utility.dart';
-import 'tasks.dart';
+import 'tasks/tasks.dart';
 
 class SectionCard extends StatefulWidget {
   final double? width;
