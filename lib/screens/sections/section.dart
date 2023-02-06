@@ -27,20 +27,18 @@ class _SectionState extends State<Section> {
     broker.listen(widget.name, (event) {
       Protocol protocol = (event as Protocol);
       if (protocol.publisher == "${widget.name}_seperator") {
-        setState(() {
-          isClose = (protocol.data as bool);
-        });
+        setState(() {isClose = (protocol.data as bool);});
       } else if (protocol.publisher == "addNewCard") {
         subSections.subSections.add((protocol.data as models.Card).title!);
-        // cardList.add(protocol.data);
         setState(() {});
       } else if (protocol.publisher == "delete") {
-        // TODO: Implement card delete logic
+        String name = subSections.subSections.removeAt(protocol.data);
+        db.delete("todos", "${name}_c");
+        String saveSubSection = subSections.toString();
+        db.set("todos", "${widget.name}_cards", saveSubSection);
+        setState(() {});
       } else if (protocol.publisher == "editService") {
-        
-        setState(() {
-          
-        });
+        setState(() {});
       }
     });
   }
@@ -82,7 +80,8 @@ class _SectionState extends State<Section> {
                             child: SectionCard(
                               width: MediaQuery.of(context).size.width/2-20,
                               height: MediaQuery.of(context).size.width/2-30,
-                              cardName: subSections.subSections[i]
+                              cardName: subSections.subSections[i],
+                              index: i,
                             ),
                           )
                       ]

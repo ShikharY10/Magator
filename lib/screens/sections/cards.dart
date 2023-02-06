@@ -5,7 +5,7 @@ import '../../db/config.dart';
 import '../../db/models.dart' as models;
 import '../../broker/broker.dart';
 import '../../utils/themes/colors.dart';
-import '../popups/delete.dart';
+import '../popups/delete_subsection.dart';
 import '../popups/utility.dart';
 import 'tasks.dart';
 
@@ -13,11 +13,13 @@ class SectionCard extends StatefulWidget {
   final double? width;
   final double? height;
   final String? cardName;
+  final int index;
   const SectionCard(
     {
       this.width, 
       this.height,
       required this.cardName,
+      required this.index,
       super.key
     }
   );
@@ -185,7 +187,7 @@ class _SectionCardState extends State<SectionCard> {
                               parent: card.parent!,
                               name: card.title!,
                               type: "Card",
-                              entityKey: "",
+                              index: widget.index,
                             )
                           );
                         }, 

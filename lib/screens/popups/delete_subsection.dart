@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
-
-import '../../db/config.dart';
 import '../../broker/broker.dart';
 
 class DeleteEntity extends StatelessWidget {
   final String name;
-  final String entityKey;
   final String parent;
   final String type;
-  const DeleteEntity({super.key, required this.name, required this.entityKey, required this.parent, required this.type});
+  final int index;
+  const DeleteEntity({super.key, required this.name, required this.parent, required this.type, required this.index});
 
   @override
   Widget build(BuildContext context) {
-    DataBase db = GetIt.I.get<DataBase>(instanceName: "db");
     return AlertDialog(
       alignment: Alignment.center,
       backgroundColor: const Color.fromARGB(255, 57, 56, 56),
@@ -67,9 +63,9 @@ class DeleteEntity extends StatelessWidget {
               )
             ),
             onTap: () {
-              db.delete("todos", entityKey);
               Broker broker = getBroker();
-              broker.publish("delete",parent, 1);
+              broker.publish("delete",parent, index);
+              Navigator.pop(context);
             }
           )
         ]
