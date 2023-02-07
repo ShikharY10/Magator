@@ -5,6 +5,8 @@ import '../../../db/config.dart';
 import '../../../db/models.dart' as models;
 import '../../../broker/broker.dart';
 import '../../popups/add_tasks.dart';
+import '../subsection/keynotes.dart';
+import 'expanded.dart';
 import 'task.dart';
 
 class MyTasks extends StatefulWidget {
@@ -167,6 +169,7 @@ class _MyTasksState extends State<MyTasks> {
               ),
             ),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
             // TODO: Implement keymotes feature
+            KeyNotes(isVisible: isKeyNotesVisible, parent: widget.title),
             Visibility(
               visible: isMoreVisible,
               child: Positioned(

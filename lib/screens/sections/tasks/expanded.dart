@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TaskExpander extends StatefulWidget {
-  const TaskExpander({super.key});
+  final bool isVisible;
+  const TaskExpander({super.key, required this.isVisible});
 
   @override
   State<TaskExpander> createState() => _TaskExpanderState();
@@ -13,7 +14,7 @@ class _TaskExpanderState extends State<TaskExpander> {
     return Padding(
       padding: const EdgeInsets.only(top: 1.0),
       child: Visibility(
-        visible: false,
+        visible: widget.isVisible,
         child: Container(
           height: 200,
           decoration: const BoxDecoration(
