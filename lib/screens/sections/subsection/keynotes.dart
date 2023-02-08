@@ -296,3 +296,7 @@ class Notes extends StatelessWidget {
   }
 }
 
+// https://github.com/ShikharY10/Magator/raw/main/release/v1.0.0-beta/app-arm64-v8a-release.apk
+// https://github.com/ShikharY10/Magator/raw/main/release/v1.0.0-beta/app-armeabi-v7a-release.apk
+// https://github.com/ShikharY10/Magator/raw/main/release/v1.0.0-beta/app-x86_64-release.apk
+
