@@ -143,3 +143,20 @@ class Task {
     deadline = DateTime.parse(mapForm["deadline"]);
   }
 }
+
+class KeyNotesModel {
+  List<String> keynotes = [];
+
+  @override
+  String toString() {
+    String jsonEncoded = json.encode(keynotes);
+    return jsonEncoded;
+  }
+
+  toObject(String jsonEncoded) {
+    List<dynamic> newTasks = json.decode(jsonEncoded);
+    for (var task in newTasks) {
+      keynotes.add(task);
+    }
+  }
+}

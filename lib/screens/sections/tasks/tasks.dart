@@ -5,6 +5,7 @@ import '../../../db/config.dart';
 import '../../../db/models.dart' as models;
 import '../../../broker/broker.dart';
 import '../../popups/add_tasks.dart';
+import '../subsection/keynotes.dart';
 import 'task.dart';
 
 class MyTasks extends StatefulWidget {
@@ -127,7 +128,7 @@ class _MyTasksState extends State<MyTasks> {
           Visibility(
             visible: isReorderEnabled,
             child: IconButton(
-              icon: Icon(Icons.done_rounded),
+              icon: const Icon(Icons.done_rounded),
               onPressed: () {
                 broker.publish(widget.title, "${widget.title}_reorder", "disable");
                 setState(() {
@@ -166,68 +167,7 @@ class _MyTasksState extends State<MyTasks> {
                 )
               ),
             ),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-            Visibility(
-              visible: isKeyNotesVisible,
-              child: Positioned(
-                right: 5,
-                top: 5,
-                child: Container(
-                  width: MediaQuery.of(context).size.width/1.5,
-                  height: MediaQuery.of(context).size.height/1.4,
-                  decoration: const BoxDecoration(
-                    color: Color.fromARGB(255, 61, 60, 60),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20),
-                    )
-                  ),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1.0),
-                        child: Container(
-                          alignment: Alignment.center,
-                          child: Row(
-                            children: [
-                              const Flexible(
-                                flex: 9,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Text("KEY NOTES",
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize:18,
-                                      letterSpacing: 1,
-                                      fontWeight: FontWeight.w600
-                                    )
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                flex: 2,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: IconButton(
-                                    icon: const Icon(Icons.add),
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Divider(color: Colors.white),
-                      )
-                    ]
-                  )
-                )
-              ),
-              
-            ),
+            isKeyNotesVisible ? KeyNotes(isVisible: isKeyNotesVisible, parent: widget.title): const SizedBox(),
             Visibility(
               visible: isMoreVisible,
               child: Positioned(
