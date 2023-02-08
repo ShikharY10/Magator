@@ -6,7 +6,6 @@ import '../../../db/models.dart' as models;
 import '../../../broker/broker.dart';
 import '../../popups/add_tasks.dart';
 import '../subsection/keynotes.dart';
-import 'expanded.dart';
 import 'task.dart';
 
 class MyTasks extends StatefulWidget {
@@ -129,7 +128,7 @@ class _MyTasksState extends State<MyTasks> {
           Visibility(
             visible: isReorderEnabled,
             child: IconButton(
-              icon: Icon(Icons.done_rounded),
+              icon: const Icon(Icons.done_rounded),
               onPressed: () {
                 broker.publish(widget.title, "${widget.title}_reorder", "disable");
                 setState(() {
@@ -168,8 +167,7 @@ class _MyTasksState extends State<MyTasks> {
                 )
               ),
             ),                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
-            // TODO: Implement keymotes feature
-            KeyNotes(isVisible: isKeyNotesVisible, parent: widget.title),
+            isKeyNotesVisible ? KeyNotes(isVisible: isKeyNotesVisible, parent: widget.title): const SizedBox(),
             Visibility(
               visible: isMoreVisible,
               child: Positioned(

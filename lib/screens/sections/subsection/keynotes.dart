@@ -35,6 +35,17 @@ class _KeyNotesState extends State<KeyNotes> {
     for (int i=0; i<keynotes.keynotes.length; i++) {
       deleteRegistry[i] = false;
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 1),
+          curve: Curves.fastOutSlowIn
+        );
+      });
+    });
+
   }
 
   @override
@@ -42,186 +53,187 @@ class _KeyNotesState extends State<KeyNotes> {
     for (int i=0; i<deleteRegistry.length; i++) {
       deleteRegistry[i] = false;
     }
-    setState(() {});
+    controller.dispose();
+    _scrollController.dispose();
+    // setState(() {});
     super.dispose();
   }
 
+  // @override
+  // void 
+
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: widget.isVisible,
-      child: Positioned(
-        right: 5,
-        top: 5,
-        child: Container(
-          width: MediaQuery.of(context).size.width/1.5,
-          height: MediaQuery.of(context).size.height/2.3,
-          decoration: const BoxDecoration(
-            color: Color.fromARGB(255, 61, 60, 60),
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20),
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            )
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 3.0),
-                child: Container(
-                  alignment: Alignment.center,
-                  child: showDeleteOptions ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      IconButton(
-                        color: Colors.red,
-                        icon: const Icon(Icons.delete),
-                        padding: EdgeInsets.zero,
-                        onPressed: () {
-                          int deleteCount = 0;
-                          deleteRegistry.forEach((key, value) {
-                            if (value) {
-                              keynotes.keynotes.removeAt(key-deleteCount);
-                              deleteCount++;
-                            }
-                          });
-                          String saveKeyNotes = keynotes.toString();
-                          db.set("settings", "${widget.parent}_kn", saveKeyNotes);
-                          for (int i=0; i<deleteRegistry.length; i++) {
-                            deleteRegistry[i] = false;
+    return Positioned(
+      right: 5,
+      top: 5,
+      child: Container(
+        width: MediaQuery.of(context).size.width/1.5,
+        height: MediaQuery.of(context).size.height/2.3,
+        decoration: const BoxDecoration(
+          color: Color.fromARGB(255, 61, 60, 60),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            bottomLeft: Radius.circular(20),
+            bottomRight: Radius.circular(20),
+          )
+        ),
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 3.0),
+              child: Container(
+                alignment: Alignment.center,
+                child: showDeleteOptions ? Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      color: Colors.red,
+                      icon: const Icon(Icons.delete),
+                      padding: EdgeInsets.zero,
+                      onPressed: () {
+                        int deleteCount = 0;
+                        deleteRegistry.forEach((key, value) {
+                          if (value) {
+                            keynotes.keynotes.removeAt(key-deleteCount);
+                            deleteCount++;
                           }
-                          setState(() {
-                            showDeleteOptions = false;
-                          });
+                        });
+                        String saveKeyNotes = keynotes.toString();
+                        db.set("settings", "${widget.parent}_kn", saveKeyNotes);
+                        for (int i=0; i<deleteRegistry.length; i++) {
+                          deleteRegistry[i] = false;
                         }
-                      ),
-                      IconButton(
-                        color: Colors.green,
-                        icon: const Icon(Icons.cancel),
-                        onPressed: () {
-                          for (int i=0; i<deleteRegistry.length; i++) {
-                            deleteRegistry[i] = false;
-                          }
-                          setState(() {
-                            showDeleteOptions = false;
-                          });
+                        setState(() {
+                          showDeleteOptions = false;
+                        });
+                      }
+                    ),
+                    IconButton(
+                      color: Colors.green,
+                      icon: const Icon(Icons.cancel),
+                      onPressed: () {
+                        for (int i=0; i<deleteRegistry.length; i++) {
+                          deleteRegistry[i] = false;
                         }
-                      )
-                    ],
-                  ) : const Text("KEY NOTES",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize:18,
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w500
+                        setState(() {
+                          showDeleteOptions = false;
+                        });
+                      }
                     )
+                  ],
+                ) : const Text("KEY NOTES",
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize:18,
+                    letterSpacing: 1,
+                    fontWeight: FontWeight.w500
                   )
-                ),
+                )
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Divider(color: Colors.white),
-              ),
-              Expanded(
-                child: ListView.builder(
-                  controller: _scrollController,
-                  reverse: true,
-                  itemCount: keynotes.keynotes.length,
-                  dragStartBehavior: DragStartBehavior.down,
-                  itemBuilder: (context, index) {
-                    return Notes(
-                      index: index,
-                      parent: "${widget.parent}_kn",
-                      notes: keynotes.keynotes[index],
-                      isDeleteEnabled: showDeleteOptions,
-                      isSelected: deleteRegistry[index]!,
-                      onTap: (noteIndex) {
-                        if (showDeleteOptions) {
-                          if (deleteRegistry[index]!) {
-                            setState(() {deleteRegistry[index] = false;});
-                          } else {
-                            setState(() {deleteRegistry[index] = true;});
-                          }
+            ),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
+              child: Divider(color: Colors.white),
+            ),
+            Expanded(
+              child: ListView.builder(
+                controller: _scrollController,
+                reverse: true,
+                itemCount: keynotes.keynotes.length,
+                dragStartBehavior: DragStartBehavior.down,
+                itemBuilder: (context, index) {
+                  return Notes(
+                    index: index,
+                    parent: "${widget.parent}_kn",
+                    notes: keynotes.keynotes[index],
+                    isDeleteEnabled: showDeleteOptions,
+                    isSelected: deleteRegistry[index]!,
+                    onTap: (noteIndex) {
+                      if (showDeleteOptions) {
+                        if (deleteRegistry[index]!) {
+                          setState(() {deleteRegistry[index] = false;});
+                        } else {
+                          setState(() {deleteRegistry[index] = true;});
                         }
-                      },                      
-                      onLongPress: (index) {
-                        if (!showDeleteOptions) {
+                      }
+                    },                      
+                    onLongPress: (index) {
+                      if (!showDeleteOptions) {
+                        setState(() {
+                          showDeleteOptions = true;  
+                        });
+                      }
+                    },
+                  );
+                }
+              ),
+            ),
+            Container(
+              constraints: const BoxConstraints(
+                minHeight: 40,
+                maxHeight: 100,
+              ),
+              child: TextFormField(
+                autofocus: false,
+                controller: controller,
+                maxLines: 6,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 13
+                ),
+                textAlignVertical: TextAlignVertical.center,
+                decoration: InputDecoration(
+                filled: true,
+                fillColor: const Color.fromARGB(255, 33, 34, 34),
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.circular(20)
+                ),
+                hintText: "key notes",
+                hintStyle: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 136, 108, 55)),
+                suffixIcon: Container(
+                  width: 40,
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 40,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      color: Colors.white,
+                      icon: const Icon(Icons.send),
+                      onPressed: () async {
+                        if (controller.text.isNotEmpty) {
+                          String keyNote = controller.text;
+                          int index = keynotes.keynotes.length;
+                          keynotes.keynotes.add(keyNote);
+                          db.set("settings", "${widget.parent}_kn", keynotes.toString());
+                          deleteRegistry[index] = false;
+                          
+                          await Future.delayed(const Duration(milliseconds: 100));
+                          SchedulerBinding.instance.addPostFrameCallback((_) {
+                            _scrollController.animateTo(
+                              _scrollController.position.maxScrollExtent,
+                              duration: const Duration(milliseconds: 4),
+                              curve: Curves.fastOutSlowIn
+                            );
+                          });
+
                           setState(() {
-                            showDeleteOptions = true;  
+                            controller.clear();
                           });
                         }
                       },
-                    );
-                  }
+                    )
+                  ),
                 ),
+                
               ),
-              Container(
-                constraints: const BoxConstraints(
-                  minHeight: 40,
-                  maxHeight: 100,
-                ),
-                child: TextFormField(
-                  autofocus: false,
-                  controller: controller,
-                  maxLines: 6,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 13
-                  ),
-                  textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                  filled: true,
-                  fillColor: const Color.fromARGB(255, 33, 34, 34),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                  hintText: "key notes",
-                  hintStyle: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 136, 108, 55)),
-                  suffixIcon: Container(
-                    width: 40,
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      alignment: Alignment.center,
-                      child: IconButton(
-                        color: Colors.white,
-                        icon: const Icon(Icons.send),
-                        onPressed: () async {
-                          if (controller.text.isNotEmpty) {
-                            String keyNote = controller.text;
-                            int index = keynotes.keynotes.length;
-                            keynotes.keynotes.add(keyNote);
-                            db.set("settings", "${widget.parent}_kn", keynotes.toString());
-                            deleteRegistry[index] = false;
-                            
-                            await Future.delayed(const Duration(milliseconds: 100));
-                            SchedulerBinding.instance.addPostFrameCallback((_) {
-                              _scrollController.animateTo(
-                                _scrollController.position.maxScrollExtent,
-                                duration: const Duration(milliseconds: 4),
-                                curve: Curves.fastOutSlowIn
-                              );
-                            });
-
-                            setState(() {
-                              controller.clear();
-                            });
-                          }
-                        },
-                      )
-                    ),
-                  ),
-                  
-                ),
-                )
               )
-            ]
-          )
+            )
+          ]
         )
-      ),
-      
+      )
     );
   }
 }
