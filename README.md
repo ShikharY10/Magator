@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/Magator.png" alt="Magator Logo" width="320">
+  <img src="./assets/Magator.png" alt="Magator Logo" width="320">
   <h1>Magator</h1>
   <strong>A Todo App designed for programmers 👩🏽‍💻</strong>
   <h6>Made with ❤️ &nbsp;by developers for developers</h6>
@@ -20,3 +20,11 @@
     </th>
   </tr>
 </p>
+
+<hr>
+
+## Installation
+
+[<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
+    alt="Get it on GitHub"
+    height="80">](https://github.com/ShikharY10/magator/releases/latest)
