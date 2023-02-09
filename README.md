@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/Magator.png" alt="Magator Logo" width="320">
+  <img src="https://user-images.githubusercontent.com/65106263/217037558-97985d87-e372-447f-81dd-f39c1a2810fb.png" alt="Magator Logo" width="320">
   <h1>Magator</h1>
   <strong>A Todo App designed for programmers 👩🏽‍💻</strong>
   <h6>Made with ❤️ &nbsp;by developers for developers</h6>
