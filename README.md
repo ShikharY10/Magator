@@ -21,10 +21,25 @@
   </tr>
 </p>
 
-<hr>
-
-## Installation
+# Installation
 
 [<img src="https://github.com/machiav3lli/oandbackupx/blob/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png"
     alt="Get it on GitHub"
     height="80">](https://github.com/ShikharY10/magator/releases/latest)
+
+# Features
+
+- Register Project, can be called **Section**
+- Register sub-projects, can be called **Sub-Section**
+- Add start date, deadline, and priority to Sub-Sections
+- Add keynotes to sub-sections
+- Register Tasks under Sub-Sections
+- Add start date, deadline, and priority to each Task
+
+# Coming Soon
+
+- Add notification option
+- Add alart option for sub-sections and tasks
+- Expanded mode for Task
+
+> Do let us know about what you thing can be designed and implemented in more better way, [here](https://docs.google.com/forms/d/e/1FAIpQLSfm8UfJNKQ7-2fRD43evrfHiXOta6rsUJ0g0aHF-nLltcI_4Q/viewform?usp=sf_link).
