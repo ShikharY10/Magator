@@ -42,4 +42,6 @@
 - Add alart option for sub-sections and tasks
 - Expanded mode for Task
 
+<hr>
+
 > :raised_hand_with_fingers_splayed: Do let us know about what you thing can be designed and implemented in more better way, [:point_right: here](https://docs.google.com/forms/d/e/1FAIpQLSfm8UfJNKQ7-2fRD43evrfHiXOta6rsUJ0g0aHF-nLltcI_4Q/viewform?usp=sf_link).
