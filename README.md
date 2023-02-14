@@ -40,7 +40,7 @@
 
 - Edit tasks
 - Add notification option
-- Add alart option for sub-sections and tasks
+- Add alarm option for sub-sections and tasks
 - Expanded mode for Task
 
 <hr>
