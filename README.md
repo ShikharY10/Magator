@@ -30,7 +30,7 @@
 # Features
 
 - Register Project, can be called **Section**
-- Register sub-projects, can be called **Sub-Section**
+- Register services under project, can be called **Sub-Section**
 - Add start date, deadline, and priority to Sub-Sections
 - Add keynotes to sub-sections
 - Register Tasks under Sub-Sections
