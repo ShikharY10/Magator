@@ -25,15 +25,7 @@ class _EditSubSectionState extends State<EditSubSection> {
   dynamic valueOfColor;
   DateTime? deadline;
 
-  bool isAnyValueChanged = false;
   models.Card updatedCard = models.Card();
-
-  String formateDate(DateTime date) {
-    String initial = date.toString().split(" ")[0];
-    List<String> splited = initial.split("-");
-    String newDate = splited[2] + "/" + splited[1] + "/" + splited[0];
-    return newDate;
-  }
 
   bool isEqual(models.Card cardOne, models.Card cardTwo) {
     if (cardOne.colorIndex == cardTwo.colorIndex) {
@@ -167,7 +159,6 @@ class _EditSubSectionState extends State<EditSubSection> {
                 db.set("todos", "${updatedCard.title}_c", jsonEncoded);
                 Broker broker = getBroker();
                 broker.publish("editService", widget.card.title!, updatedCard);
-                // broker.publish("editService", widget.card.parent!, widget.card.title!);
                 Navigator.pop(context);
               },
               validator: () {
