@@ -4,6 +4,10 @@
 
 # v1.0.1 ( 14/02/2023 )
 
+### Feature:
+
+- Added edit task option. [f09306a](https://github.com/ShikharY10/Magator/pull/7/commits/f09306a344c858a5bfbfd766eceba80e0178c915)
+
 <br>
 
 # v1.0.0 ( 06/02/2023 )

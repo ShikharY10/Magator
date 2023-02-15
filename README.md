@@ -38,7 +38,7 @@
 
 # Coming Soon
 
-- Edit tasks
+- Edit tasks <- Implemented, [see f09306a](https://github.com/ShikharY10/Magator/pull/7/commits/f09306a344c858a5bfbfd766eceba80e0178c915)
 - Add notification option
 - Add alarm option for sub-sections and tasks
 - Expanded mode for Task
