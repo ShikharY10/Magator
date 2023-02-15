@@ -1,9 +1,6 @@
 <p align="center">
     <h1>Welcome To Magator ChangeLog <img src="https://media.tenor.com/k-A2Bukh1lUAAAAj/loading-loading-symbol.gif" width ="35"></h1>
-    <h2></h2>
 <p>
-
-<br>
 
 # v1.0.1 ( 14/02/2023 )
 
