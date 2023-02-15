@@ -3,6 +3,7 @@ import 'package:get_it/get_it.dart';
 import '../../../db/config.dart';
 import '../../../db/models.dart' as models;
 import '../../../broker/broker.dart';
+import '../../popups/edit_task.dart';
 import '../../popups/utility.dart';
 
 class MyTask extends StatefulWidget {
@@ -40,6 +41,18 @@ class _MyTaskState extends State<MyTask> {
         }
       }
     });
+
+    broker.listen(widget.taskName, (event) {
+      if (event.publisher == "taskEditService") {
+        if ((event.data as models.Task).title == task.title) {
+          setState(() {
+            task = (event.data as models.Task);
+            showDeleteButton = false;
+          });
+        }
+      }
+    });
+
   }
 
   @override
@@ -64,6 +77,7 @@ class _MyTaskState extends State<MyTask> {
 
   @override
   Widget build(BuildContext context) {
+    print("taskName: ${widget.taskName}");
     return Padding(
       padding: const EdgeInsets.only(right: 8, left: 8, bottom: 5),
       child: ReorderableDragStartListener(
@@ -196,6 +210,18 @@ class _MyTaskState extends State<MyTask> {
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
+                            IconButton(
+                              splashRadius: 25,
+                              splashColor: Colors.black,
+                              color: Colors.green,
+                              icon: const Icon(Icons.edit),
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => EditTask(task: task)
+                                );
+                              },
+                            ),
                             IconButton(
                               splashRadius: 25,
                               splashColor: Colors.black,
